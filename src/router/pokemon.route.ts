@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { createUser } from "../pokemon/pokemon.controller";
+import { getPokemonInformation } from "../pokemon/pokemon.controller";
 
 const pokemonRouter = () => {
   const router = Router();
 
-  router.post("/pokemon", createUser);
+  router.post("/pokemon", getPokemonInformation);
 
   return router;
 };
