@@ -2,6 +2,7 @@
   "name": "starship",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "src/server.ts",
   "scripts": {
     "start": "rm -rf ./dist && tsc && node dist/server.js "
@@ -23,6 +24,7 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "got": "^11.8.2"
+    "got": "^11.8.2",
+    "helmet": "^4.6.0"
   }
 }
