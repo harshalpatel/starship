@@ -5,7 +5,7 @@
   "type": "module",
   "main": "src/server.ts",
   "scripts": {
-    "start": "rm -rf ./dist && tsc && node dist/server.js "
+    "start": "rm -rf ./dist && tsc && node --experimental-specifier-resolution=node dist/server.js "
   },
   "repository": {
     "type": "git",
