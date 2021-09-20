@@ -5,7 +5,9 @@ import { PokemonDto } from "../../respoisitories/pokemon/pokemon.dto";
 class PokemonService {
   constructor(private readonly pokemeonRepo = new PokemonRepository()) {}
 
-  async getPokemonInformation(pokemons: [string]): Promise<any> {
+  async getPokemonInformation(
+    pokemons: [string]
+  ): Promise<PokemonInformationModel> {
     const dtoArray: PokemonDto[] = [];
 
     // API requires pokemon to be lowercase and we dedupe to reduce api calls

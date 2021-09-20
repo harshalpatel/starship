@@ -8,11 +8,11 @@ export class PokemonInformationView {
   pokemon: Pokemon;
 }
 
-export interface PokemonDetails {
+export class PokemonDetails {
   height: number;
   weight: number;
 }
 
-export interface Pokemon {
+export class Pokemon {
   [pokemon: string]: PokemonDetails;
 }
