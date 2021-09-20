@@ -6,10 +6,15 @@ async function getPokemonInformation(
   res: Response
 ): Promise<any> {
   const service = new PokemonService();
-  // TODO: Input validation of body schema
-  const pokemon = req.body.pokemon;
 
-  return res.status(200).json(await service.getPokemonInformation(pokemon));
+  try {
+    const pokemonInformation = await service.getPokemonInformation(
+      req.body.pokemon
+    );
+    return res.status(200).json(pokemonInformation);
+  } catch (e) {
+    return res.status(500).json(e);
+  }
 }
 
 export { getPokemonInformation };

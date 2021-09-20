@@ -1,18 +1,21 @@
-import got from "got";
+import got, { HTTPError, Response, RequestError } from "got";
 
 export class NetworkService {
   constructor() {}
 
   private async request<T>(url: string): Promise<T> {
     try {
-      // TODO: Add Timeouts
       const res = await got<T>(url, {
         responseType: "json",
+        timeout: 10000,
+        throwHttpErrors: true,
       });
 
       return res.body;
     } catch (e) {
-      // TODO: Add error Handling
+      const response: Response = e.response;
+      // TODO: Improve error handlings
+      throw new HTTPError(response);
     }
   }
 
