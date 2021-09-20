@@ -1,5 +1,5 @@
-import { Injectable } from "@nestjs/common";
-import got, { HTTPError, Response, RequestError } from "got";
+import { HttpException, Injectable } from "@nestjs/common";
+import got, { Response } from "got";
 
 @Injectable()
 export class NetworkService {
@@ -16,8 +16,12 @@ export class NetworkService {
       return res.body;
     } catch (e) {
       const response: Response = e.response;
-      // TODO: Improve error handlings
-      throw new HTTPError(response);
+
+      switch (response.statusCode) {
+        case 404:
+          throw new HttpException(`Invalid Pokemon`, 400);
+      }
+      throw new HttpException(response.body, 500);
     }
   }
 

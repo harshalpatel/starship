@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, Injectable, NotFoundException } from "@nestjs/common";
 import { NetworkService } from "../../common/network.service";
 import { PokemonDto } from "./pokemon.dto";
 
@@ -9,9 +9,16 @@ export class PokemonRepository {
   constructor(private readonly networkService: NetworkService) {}
 
   async getPokemonInformation(name: string): Promise<PokemonDto> {
-    const response = await this.networkService.get<PokemonDto>(
-      `${this.pokemonUrl}${name}`
-    );
-    return response;
+    try {
+      const response = await this.networkService.get<PokemonDto>(
+        `${this.pokemonUrl}${name}`
+      );
+      return response;
+    } catch (e) {
+      if (e instanceof HttpException && e.getStatus() === 400) {
+        throw new NotFoundException(`${name} - invalid pokemon`);
+      }
+      throw e;
+    }
   }
 }

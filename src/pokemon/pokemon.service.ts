@@ -17,14 +17,10 @@ export class PokemonService {
 
     await Promise.all(
       cleanPokemonArray.map(async (cleanPokemon) => {
-        try {
-          const pokemonInformation =
-            await this.pokemeonRepo.getPokemonInformation(cleanPokemon);
+        const pokemonInformation =
+          await this.pokemeonRepo.getPokemonInformation(cleanPokemon);
 
-          dtoArray.push(pokemonInformation);
-        } catch (e) {
-          throw new Error(e);
-        }
+        dtoArray.push(pokemonInformation);
       })
     );
 
