@@ -3,14 +3,16 @@ export class PokemonInformationView {
   medianWeight: number;
   averageHeight: number;
   averageWeight: number;
+  modeHeight: number[];
+  modeWeight: number[];
   pokemon: Pokemon;
 }
 
-export interface PokemonDetails {
+export class PokemonDetails {
   height: number;
   weight: number;
 }
 
-export interface Pokemon {
+export class Pokemon {
   [pokemon: string]: PokemonDetails;
 }

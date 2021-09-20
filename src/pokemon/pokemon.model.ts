@@ -1,3 +1,4 @@
+import { max } from "class-validator";
 import { PokemonDto } from "../respoisitories/pokemon/pokemon.dto";
 import { Pokemon, PokemonInformationView } from "./pokemon.view";
 
@@ -29,6 +30,9 @@ export class PokemonInformationModel extends PokemonInformationView {
     this.medianWeight = this.medianOfArray(sortedWeights);
 
     this.pokemon = pokemonInformationMap;
+
+    this.modeHeight = this.modeOfArray(heights);
+    this.modeWeight = this.modeOfArray(weights);
   }
 
   private averageOfArray(array: number[]): number {
@@ -43,5 +47,30 @@ export class PokemonInformationModel extends PokemonInformationView {
     }
 
     return sortedArray[middleElement];
+  }
+
+  private modeOfArray(array: number[]): number[] {
+    const modeCounter = new Map<number, number>();
+    const modes: number[] = [];
+    let maxCount = 0;
+
+    array.forEach((number) => {
+      const occurenceCount = modeCounter.has(number)
+        ? modeCounter.get(number) + 1
+        : 1;
+      modeCounter.set(number, occurenceCount);
+
+      if (occurenceCount > maxCount) {
+        maxCount = occurenceCount;
+      }
+    });
+
+    for (let [number, occurentCount] of modeCounter) {
+      if (occurentCount === maxCount) {
+        modes.push(number);
+      }
+    }
+
+    return modes;
   }
 }
