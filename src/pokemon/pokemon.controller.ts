@@ -1,13 +1,18 @@
-import { Request } from "express";
-import { Controller, Post, Req } from "@nestjs/common";
+import { Body, Controller, Post } from "@nestjs/common";
 import { PokemonService } from "./pokemon.service";
+import { IsNotEmpty } from "class-validator";
+
+export class PokemonBodyDto {
+  @IsNotEmpty()
+  pokemon: [string];
+}
 
 @Controller()
 export class PokemonController {
   constructor(private readonly pokemonService: PokemonService) {}
 
   @Post("pokemon")
-  getPokemon(@Req() req: Request) {
-    return this.pokemonService.getPokemonInformation(req.body.pokemon);
+  getPokemon(@Body() requestBody: PokemonBodyDto) {
+    return this.pokemonService.getPokemonInformation(requestBody.pokemon);
   }
 }
