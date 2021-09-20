@@ -1,10 +1,12 @@
+import { Injectable } from "@nestjs/common";
 import { NetworkService } from "../../common/network.service";
 import { PokemonDto } from "./pokemon.dto";
 
-class PokemonRepository {
+@Injectable()
+export class PokemonRepository {
   private readonly pokemonUrl = "https://pokeapi.co/api/v2/pokemon/";
 
-  constructor(private readonly networkService = new NetworkService()) {}
+  constructor(private readonly networkService: NetworkService) {}
 
   async getPokemonInformation(name: string): Promise<PokemonDto> {
     const response = await this.networkService.get<PokemonDto>(
@@ -13,5 +15,3 @@ class PokemonRepository {
     return response;
   }
 }
-
-export { PokemonRepository };

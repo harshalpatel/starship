@@ -1,5 +1,7 @@
+import { Injectable } from "@nestjs/common";
 import got, { HTTPError, Response, RequestError } from "got";
 
+@Injectable()
 export class NetworkService {
   constructor() {}
 

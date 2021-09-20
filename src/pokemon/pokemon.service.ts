@@ -1,13 +1,13 @@
-import { PokemonRepository } from "../../respoisitories/pokemon/pokemon.repository";
-import { PokemonInformationModel } from "../pokemon.model";
-import { PokemonDto } from "../../respoisitories/pokemon/pokemon.dto";
+import { PokemonRepository } from "../respoisitories/pokemon/pokemon.repository";
+import { PokemonInformationModel } from "./pokemon.model";
+import { PokemonDto } from "../respoisitories/pokemon/pokemon.dto";
+import { Injectable } from "@nestjs/common";
 
-class PokemonService {
-  constructor(private readonly pokemeonRepo = new PokemonRepository()) {}
+@Injectable()
+export class PokemonService {
+  constructor(private readonly pokemeonRepo: PokemonRepository) {}
 
-  async getPokemonInformation(
-    pokemons: [string]
-  ): Promise<PokemonInformationModel> {
+  async getPokemonInformation(pokemons: [string]) {
     const dtoArray: PokemonDto[] = [];
 
     // API requires pokemon to be lowercase and we dedupe to reduce api calls
@@ -31,4 +31,3 @@ class PokemonService {
     return new PokemonInformationModel(dtoArray);
   }
 }
-export { PokemonService };
